@@ -1,3 +1,9 @@
+.container {
+  margin: 20px 50px;
+  background-color: #008dcc;
+  color: white;
+  border-radius: 15px;
+}
 .TodoContainer {
   border-right: 2px solid black;
   height: 100vh;
