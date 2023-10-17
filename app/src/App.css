@@ -1,0 +1,11 @@
+.TodoContainer {
+  border-right: 2px solid black;
+  height: 100vh;
+}
+.ProgressContainer {
+  border-right: 2px solid black;
+  height: 100vh;
+}
+.card {
+  border: 2px solid black;
+}
