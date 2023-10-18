@@ -1,8 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+//import { formatDate } from "../utils";
 
-function Card({ addTask, tasks, handleDelete, handleTextEdit }) {
+function Card({ addTask, tasks, handleDelete, handleTextEdit, dragUpdate }) {
   const [text, setText] = useState("");
-
+  const dragItem = useRef(null);
+  const dragOverItem = useRef(null);
+  const handleSort = (id) => {
+    dragUpdate(dragItem.current, dragOverItem.current, id);
+  };
   const addCard = () => {
     //setText("");
     addTask(text);
@@ -36,7 +41,14 @@ function Card({ addTask, tasks, handleDelete, handleTextEdit }) {
       </button>
       <div className="showCards">
         {tasks.map((task, index) => (
-          <div key={task.id} className="card" draggable>
+          <div
+            key={task.id}
+            className="card"
+            draggable
+            onDragStart={(e) => (dragItem.current = index)}
+            onDragEnter={(e) => (dragOverItem.current = index)}
+            onDragEnd={() => handleSort(task.id)}
+          >
             <div className="title-bar">
               Task:
               <button
@@ -51,7 +63,7 @@ function Card({ addTask, tasks, handleDelete, handleTextEdit }) {
 
             <div
               className="textarea"
-              contentEditable={true}
+              contentEditable={false}
               key={task.id}
               // onInput={(e) => handleTextChange(e.target.innerHTML)}
               onKeyDown={(e) => enterKeyPressed(e, e.target.innerHTML, task.id)}
@@ -59,7 +71,10 @@ function Card({ addTask, tasks, handleDelete, handleTextEdit }) {
               required
               html={task.text}
             ></div>
-            <div>Last updated:{task.dateTime.toString()} </div>
+            <div>
+              <strong>Last updated:</strong>
+              {task.dateTime.toString()}
+            </div>
           </div>
         ))}
       </div>

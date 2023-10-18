@@ -7,7 +7,22 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { v4 as uuidv4 } from "uuid";
 function App() {
-  const [tasks, dispatch] = useReducer(tasksReducer, []);
+  const initialtasks = getfromLocal();
+  console.log(initialtasks);
+  const [tasks, dispatch] = useReducer(tasksReducer, initialtasks);
+  useEffect(() => {
+    saveToLocal(tasks);
+  }, [tasks]);
+  function getfromLocal() {
+    const getData = localStorage.getItem("tasks");
+    if (getData) {
+      return JSON.parse(getData);
+    }
+    return [];
+  }
+  function saveToLocal(tasks) {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }
   function tasksReducer(tasks, action) {
     switch (action.type) {
       case "TASK_ADD": {
@@ -35,6 +50,12 @@ function App() {
         }
         return EditTask;
       }
+      case "TASK_DRAG": {
+        let newTasks = [...tasks];
+        newTasks[action.value.dragItemcurrent].inState = "progress";
+
+        return newTasks;
+      }
       default: {
         throw Error("Unknown action: " + action.type);
       }
@@ -59,6 +80,12 @@ function App() {
       value: { newvalue, id },
     });
   }
+  function dragUpdate(dragItemcurrent, dragOverItemcurrent, id) {
+    dispatch({
+      type: "TASK_DRAG",
+      value: { dragItemcurrent, dragOverItemcurrent, id },
+    });
+  }
 
   return (
     <>
@@ -74,6 +101,7 @@ function App() {
               handleDelete={handleDelete}
               tasks={tasks}
               handleTextEdit={handleEdit}
+              dragUpdate={dragUpdate}
             />
           </div>
           <div className="col ProgressContainer">
