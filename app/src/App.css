@@ -5,6 +5,11 @@
   color: white;
   border-radius: 15px;
 }
+.App-title {
+  text-align: center;
+  background-color: black;
+  color: white;
+}
 .TodoContainer {
   padding: 20px;
   border-right: 2px solid white;
@@ -25,8 +30,9 @@
   position: relative;
 }
 
-.card textarea {
+.textarea {
   margin: 15px 5px;
+  border: 2px groove black;
   border-radius: 8px;
   height: 35px;
 }
