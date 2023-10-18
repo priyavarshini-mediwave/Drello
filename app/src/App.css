@@ -1,17 +1,54 @@
 .container {
   margin: 20px 50px;
+
   background-color: #008dcc;
   color: white;
   border-radius: 15px;
 }
 .TodoContainer {
-  border-right: 2px solid black;
+  padding: 20px;
+  border-right: 2px solid white;
   height: 100vh;
+  position: relative;
 }
 .ProgressContainer {
-  border-right: 2px solid black;
+  padding: 20px;
+  border-right: 2px solid white;
   height: 100vh;
 }
+.DoneContainer {
+  padding: 20px;
+}
 .card {
+  margin-top: 25px;
   border: 2px solid black;
+  position: relative;
+}
+
+.card textarea {
+  margin: 15px 5px;
+  border-radius: 8px;
+  height: 35px;
+}
+.AddButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.title-bar {
+  margin-top: 3px;
+  padding: 3px;
+
+  border: 2px groove;
+  border-radius: 7px;
+  background-color: rgb(253, 245, 235);
+  color: black;
+}
+.DeleteButton {
+  height: 25px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: red;
+  color: white;
 }

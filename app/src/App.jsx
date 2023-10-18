@@ -2,23 +2,24 @@ import { useEffect, useReducer } from "react";
 import Card from "./components/Card";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { v4 as uuidv4 } from "uuid";
 function App() {
-  const [todos, dispatch] = useReducer(todoReducer, []);
-  function todoReducer(todos, action) {
+  const [tasks, dispatch] = useReducer(tasksReducer, []);
+  function tasksReducer(tasks, action) {
     switch (action.type) {
-      case "TODO_ADD": {
+      case "TASK_ADD": {
         return [
-          ...todos,
+          ...tasks,
           {
-            id: new Date().getTime(),
+            id: uuidv4(),
             text: action.value,
-            isDone: false,
-            isEdit: false,
+            dateTime: new Date().getTime(),
+            inState: "todo",
           },
         ];
       }
-      case "TODO_DELETE": {
-        const filtered = todos.filter((t) => t.id != action.value);
+      case "TASK_DELETE": {
+        const filtered = tasks.filter((t) => t.id != action.value);
         return [...filtered];
       }
       default: {
@@ -28,25 +29,32 @@ function App() {
   }
   function handleAdd(value) {
     dispatch({
-      type: "TODO_ADD",
+      type: "TASK_ADD",
       value: value,
     });
   }
   function handleDelete(id) {
     dispatch({
-      type: "TODO_DELETE",
+      type: "TASK_DELETE",
       value: id,
     });
   }
   return (
     <>
       <div className="container">
-        <div class="row">
-          <div class="col TodoContainer">
-            <Card />
+        <div className="row">
+          <div className="col TodoContainer">
+            Todo
+            <Card
+              addTask={(text) => {
+                handleAdd(text);
+              }}
+              handleDelete={handleDelete}
+              tasks={tasks}
+            />
           </div>
-          <div class="col ProgressContainer">hi</div>
-          <div class="col DoneContainer">hello</div>
+          <div className="col ProgressContainer">Progress</div>
+          <div className="col DoneContainer">Done</div>
         </div>
       </div>
     </>

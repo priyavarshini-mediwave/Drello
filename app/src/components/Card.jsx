@@ -1,24 +1,48 @@
 import React, { useState } from "react";
-function Card() {
-  const [blockquotes, setBlockquotes] = useState([]);
+
+function Card({ addTask, tasks, handleDelete }) {
+  const [text, setText] = useState("");
+
   const addCard = () => {
-    const newBlockquotes = [
-      ...blockquotes,
-      <blockquote key={blockquotes.length} contentEditable={true}>
-        <p>Edit this content to add your own quote</p>
-      </blockquote>,
-    ];
-    setBlockquotes(newBlockquotes);
+    addTask(text);
+    setText("");
   };
+
+  function handleTextChange(newValue) {
+    setText(newValue);
+  }
+
   return (
     <>
-      <button onClick={addCard}>+</button>
-      <div className="card">
-        {blockquotes.map((blockquote, index) => (
-          <div key={index}>{blockquote}</div>
+      <button className="btn-primary AddButton" onClick={addCard}>
+        +
+      </button>
+      <div className="showCards">
+        {tasks.map((task, index) => (
+          <div key={task.id} className="card" draggable>
+            <div className="title-bar">
+              Task:
+              <button
+                className="DeleteButton"
+                onClick={() => {
+                  handleDelete(task.id);
+                }}
+              >
+                x
+              </button>
+            </div>
+
+            <textarea
+              key={task.id}
+              contentEditable={true}
+              suppressContentEditableWarning={true}
+              onInput={(e) => handleTextChange(e.target.innerHTML)}
+            ></textarea>
+          </div>
         ))}
       </div>
     </>
   );
 }
+
 export default Card;
