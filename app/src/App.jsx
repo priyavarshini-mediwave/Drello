@@ -16,7 +16,7 @@ function App() {
           ...tasks,
           {
             id: uuidv4(),
-            text: action.value,
+            text: "",
             dateTime: new Date(),
             inState: "todo",
           },
@@ -26,6 +26,15 @@ function App() {
         const filtered = tasks.filter((t) => t.id != action.value);
         return [...filtered];
       }
+      case "TASK_EDIT": {
+        const EditTask = [...tasks];
+        const idx = EditTask.findIndex((t) => t.id === action.value.id);
+        if (idx !== -1) {
+          EditTask[idx].text = action.value.newvalue;
+          EditTask[idx].dateTime = new Date();
+        }
+        return EditTask;
+      }
       default: {
         throw Error("Unknown action: " + action.type);
       }
@@ -34,7 +43,7 @@ function App() {
   function handleAdd(value) {
     dispatch({
       type: "TASK_ADD",
-      value: value,
+      // value: value,
     });
   }
   function handleDelete(id) {
@@ -43,6 +52,14 @@ function App() {
       value: id,
     });
   }
+  function handleEdit(newvalue, id) {
+    console.log("-->", newvalue, id);
+    dispatch({
+      type: "TASK_EDIT",
+      value: { newvalue, id },
+    });
+  }
+
   return (
     <>
       <h1 className="App-title">Drello</h1>
@@ -56,6 +73,7 @@ function App() {
               }}
               handleDelete={handleDelete}
               tasks={tasks}
+              handleTextEdit={handleEdit}
             />
           </div>
           <div className="col ProgressContainer">
