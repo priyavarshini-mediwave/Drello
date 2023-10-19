@@ -12,8 +12,8 @@
 
 # Added local storage and retrieve data
 
+## drag to fro
+
 ## To run
 
     npm run dev
-
-dragging under development
