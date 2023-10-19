@@ -75,7 +75,7 @@ function App() {
     });
   }
   function handleEdit(newvalue, id) {
-    console.log("-->", newvalue, id);
+    //console.log("-->", newvalue, id);
     dispatch({
       type: "TASK_EDIT",
       value: { newvalue, id },
@@ -106,10 +106,20 @@ function App() {
             />
           </div>
           <div className="col ProgressContainer">
-            <Progress dragUpdate={dragUpdate} />
+            Progress
+            <Progress
+              tasks={tasks}
+              handleDelete={handleDelete}
+              dragUpdate={dragUpdate}
+            />
           </div>
           <div className="col DoneContainer">
-            <Done dragUpdate={dragUpdate} />
+            Done
+            <Done
+              tasks={tasks}
+              handleDelete={handleDelete}
+              dragUpdate={dragUpdate}
+            />
           </div>
         </div>
       </div>
