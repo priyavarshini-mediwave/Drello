@@ -1,12 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { formatDate } from "../Utils";
-function Card({ addTask, tasks, handleDelete, handleTextEdit, dragUpdate }) {
+function Card({ addTask, tasks, handleDelete, handleTextEdit }) {
   const [text, setText] = useState("");
-  const dragItem = useRef(null);
-  const dragOverItem = useRef(null);
-  const handleSort = (id) => {
-    dragUpdate(dragItem.current, dragOverItem.current, id);
-  };
+
   const addCard = () => {
     //setText("");
     addTask(text);
@@ -32,6 +28,10 @@ function Card({ addTask, tasks, handleDelete, handleTextEdit, dragUpdate }) {
   function handleTextClick(e) {
     e.target.contentEditable = true;
   }
+  const onDragStart = (ev, id) => {
+    console.log("dragstart:", id);
+    ev.dataTransfer.setData("id", id);
+  };
 
   return (
     <>
@@ -46,9 +46,9 @@ function Card({ addTask, tasks, handleDelete, handleTextEdit, dragUpdate }) {
               key={task.id}
               className="card"
               draggable
-              onDragStart={(e) => (dragItem.current = index)}
-              onDragEnter={(e) => (dragOverItem.current = index)}
-              onDragEnd={() => handleSort(task.id)}
+              onDragStart={(e) => {
+                onDragStart(e, task.id);
+              }}
             >
               <div className="title-bar">
                 Task:

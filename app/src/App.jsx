@@ -27,7 +27,6 @@ function App() {
   function tasksReducer(tasks, action) {
     switch (action.type) {
       case "TASK_ADD": {
-        //const d = new Date().toString();
         return [
           ...tasks,
           {
@@ -51,10 +50,14 @@ function App() {
         }
         return EditTask;
       }
-      case "TASK_DRAG": {
-        let newTasks = [...tasks];
-        newTasks[action.value.dragItemcurrent].inState = "progress";
 
+      case "TASK_DROP": {
+        let newTasks = tasks.filter((task) => {
+          if (task.id == action.value.id) {
+            task.inState = action.value.state;
+          }
+          return task;
+        });
         return newTasks;
       }
       default: {
@@ -81,19 +84,27 @@ function App() {
       value: { newvalue, id },
     });
   }
-  function dragUpdate(dragItemcurrent, dragOverItemcurrent, id) {
+  function onDrop(ev, state) {
+    let id = ev.dataTransfer.getData("id");
     dispatch({
-      type: "TASK_DRAG",
-      value: { dragItemcurrent, dragOverItemcurrent, id },
+      type: "TASK_DROP",
+      value: { id, state },
     });
   }
+  const onDragOver = (ev) => {
+    ev.preventDefault();
+  };
 
   return (
     <>
       <h1 className="App-title">Drello</h1>
       <div className="container">
         <div className="row">
-          <div className="col TodoContainer">
+          <div
+            className="col TodoContainer"
+            onDragOver={(e) => onDragOver(e)}
+            onDrop={(e) => onDrop(e, "todo")}
+          >
             Todo
             <Card
               addTask={(text) => {
@@ -102,24 +113,23 @@ function App() {
               handleDelete={handleDelete}
               tasks={tasks}
               handleTextEdit={handleEdit}
-              dragUpdate={dragUpdate}
             />
           </div>
-          <div className="col ProgressContainer">
+          <div
+            className="col ProgressContainer"
+            onDragOver={(e) => onDragOver(e)}
+            onDrop={(e) => onDrop(e, "progress")}
+          >
             Progress
-            <Progress
-              tasks={tasks}
-              handleDelete={handleDelete}
-              dragUpdate={dragUpdate}
-            />
+            <Progress tasks={tasks} handleDelete={handleDelete} />
           </div>
-          <div className="col DoneContainer">
+          <div
+            className="col DoneContainer"
+            onDragOver={(e) => onDragOver(e)}
+            onDrop={(e) => onDrop(e, "done")}
+          >
             Done
-            <Done
-              tasks={tasks}
-              handleDelete={handleDelete}
-              dragUpdate={dragUpdate}
-            />
+            <Done tasks={tasks} handleDelete={handleDelete} />
           </div>
         </div>
       </div>

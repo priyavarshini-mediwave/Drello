@@ -1,12 +1,10 @@
 import { useState, useRef } from "react";
 import { formatDate } from "../Utils";
 
-function Progress({ tasks, handleDelete, dragUpdate }) {
-  const [text, setText] = useState("");
-  const dragItem = useRef(null);
-  const dragOverItem = useRef(null);
-  const handleSort = (id) => {
-    dragUpdate(dragItem.current, dragOverItem.current, id);
+function Progress({ tasks, handleDelete }) {
+  const onDragStart = (ev, id) => {
+    console.log("dragstart:", id);
+    ev.dataTransfer.setData("id", id);
   };
   // function enterKeyPressed(event, newValue, id) {
   //   if (event.keyCode == 13) {
@@ -35,9 +33,9 @@ function Progress({ tasks, handleDelete, dragUpdate }) {
               key={task.id}
               className="card"
               draggable
-              onDragStart={(e) => (dragItem.current = index)}
-              onDragEnter={(e) => (dragOverItem.current = index)}
-              onDragEnd={() => handleSort(task.id)}
+              onDragStart={(e) => {
+                onDragStart(e, task.id);
+              }}
             >
               <div className="title-bar">
                 Task:
