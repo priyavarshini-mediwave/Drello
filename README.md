@@ -16,4 +16,4 @@
 
     npm run dev
 
-dragging under refer "state" branch.
+dragging refer "state" branch.
