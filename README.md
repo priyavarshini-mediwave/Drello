@@ -4,4 +4,16 @@
 
 #### delete and editable functions
 
-dragging under try
+### Exit editing on pressing Enter key
+
+### Enter editing on click
+
+## format date using functions
+
+# Added local storage and retrieve data
+
+## To run
+
+    npm run dev
+
+dragging under development
