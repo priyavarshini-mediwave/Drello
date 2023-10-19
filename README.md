@@ -12,7 +12,7 @@
 
 # Added local storage and retrieve data
 
-## drag to fro
+## drag to and fro
 
 ## To run
 
