@@ -6,6 +6,7 @@ import Done from "./components/Done";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { v4 as uuidv4 } from "uuid";
+
 function App() {
   const initialtasks = getfromLocal();
   console.log(initialtasks);
@@ -32,7 +33,7 @@ function App() {
           {
             id: uuidv4(),
             text: "",
-            dateTime: new Date(),
+            dateTime: new Date().getTime(),
             inState: "todo",
           },
         ];
@@ -105,10 +106,10 @@ function App() {
             />
           </div>
           <div className="col ProgressContainer">
-            <Progress />
+            <Progress dragUpdate={dragUpdate} />
           </div>
           <div className="col DoneContainer">
-            <Done />
+            <Done dragUpdate={dragUpdate} />
           </div>
         </div>
       </div>

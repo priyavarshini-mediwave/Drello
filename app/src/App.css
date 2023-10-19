@@ -32,9 +32,11 @@
 
 .textarea {
   margin: 15px 5px;
+  padding: 5px;
   border: 2px groove black;
   border-radius: 8px;
   height: 35px;
+  color: black;
 }
 .AddButton {
   position: absolute;

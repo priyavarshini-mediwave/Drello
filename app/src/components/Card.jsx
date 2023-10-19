@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-//import { formatDate } from "../utils";
-
+import { formatDate } from "../Utils";
 function Card({ addTask, tasks, handleDelete, handleTextEdit, dragUpdate }) {
   const [text, setText] = useState("");
   const dragItem = useRef(null);
@@ -33,6 +32,24 @@ function Card({ addTask, tasks, handleDelete, handleTextEdit, dragUpdate }) {
   function handleTextClick(e) {
     e.target.contentEditable = true;
   }
+  // const formatDate = (dateTime) => {
+  //   var hours = new Date(dateTime).getHours();
+  //   var minutes = new Date(dateTime).getMinutes();
+  //   var ampm = hours >= 12 ? "pm" : "am";
+  //   hours = hours % 12;
+  //   hours = hours ? hours : 12; // the hour '0' should be '12'
+  //   minutes = minutes < 10 ? "0" + minutes : minutes;
+  //   var strTime = hours + ":" + minutes + " " + ampm;
+  //   return (
+  //     new Date(dateTime).getDate() +
+  //     "/" +
+  //     (new Date(dateTime).getMonth() + 1) + // Add 1 to the month to get the correct month number
+  //     "/" +
+  //     new Date(dateTime).getFullYear() +
+  //     "  " +
+  //     strTime
+  //   );
+  // };
 
   return (
     <>
@@ -63,17 +80,19 @@ function Card({ addTask, tasks, handleDelete, handleTextEdit, dragUpdate }) {
 
             <div
               className="textarea"
-              contentEditable={false}
+              // contentEditable={false}
               key={task.id}
               // onInput={(e) => handleTextChange(e.target.innerHTML)}
               onKeyDown={(e) => enterKeyPressed(e, e.target.innerHTML, task.id)}
               onClick={(e) => handleTextClick(e)}
-              required
               html={task.text}
-            ></div>
+            >
+              {<span>{task.text}</span>}
+            </div>
+
             <div>
-              <strong>Last updated:</strong>
-              {task.dateTime.toString()}
+              <strong>Last updated: </strong>
+              {formatDate(task.dateTime)}
             </div>
           </div>
         ))}
