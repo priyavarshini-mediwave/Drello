@@ -26,6 +26,7 @@
 }
 .card {
   margin-top: 25px;
+  padding: 5px;
   border: 2px solid black;
   position: relative;
 }
@@ -44,19 +45,18 @@
   right: 10px;
 }
 .title-bar {
-  margin-top: 3px;
   padding: 3px;
-
+  height: 46px;
   border: 2px groove;
   border-radius: 7px;
   background-color: rgb(253, 245, 235);
   color: black;
 }
-.DeleteButton {
-  height: 25px;
+.Deletebtn {
+  height: 36px;
   position: absolute;
   top: 8px;
-  right: 8px;
-  background-color: red;
-  color: white;
+  right: 10px;
+  /* background-color: red;
+  color: white; */
 }

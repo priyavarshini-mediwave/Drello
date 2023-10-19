@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState } from "react";
 import { formatDate } from "../Utils";
 function Card({ addTask, tasks, handleDelete, handleTextEdit }) {
   const [text, setText] = useState("");
@@ -9,9 +9,6 @@ function Card({ addTask, tasks, handleDelete, handleTextEdit }) {
     // setText("");
   };
 
-  // function handleTextChange(newValue) {
-  //   setText(newValue);
-  // }
   function enterKeyPressed(event, newValue, id) {
     if (event.keyCode == 13) {
       console.log("Enter key is pressed");
@@ -53,7 +50,7 @@ function Card({ addTask, tasks, handleDelete, handleTextEdit }) {
               <div className="title-bar">
                 Task:
                 <button
-                  className="DeleteButton"
+                  className="btn btn-danger Deletebtn"
                   onClick={() => {
                     handleDelete(task.id);
                   }}
@@ -64,9 +61,7 @@ function Card({ addTask, tasks, handleDelete, handleTextEdit }) {
 
               <div
                 className="textarea"
-                //contentEditable={false}
                 key={task.id}
-                // onInput={(e) => handleTextChange(e.target.innerHTML)}
                 onKeyDown={(e) =>
                   enterKeyPressed(e, e.target.innerHTML, task.id)
                 }

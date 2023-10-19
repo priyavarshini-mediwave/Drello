@@ -1,6 +1,5 @@
 import { useEffect, useReducer } from "react";
 import Card from "./components/Card";
-import Todo from "./components/Todo";
 import Progress from "./components/Progress";
 import Done from "./components/Done";
 import "./App.css";
@@ -105,7 +104,7 @@ function App() {
             onDragOver={(e) => onDragOver(e)}
             onDrop={(e) => onDrop(e, "todo")}
           >
-            Todo
+            <h1>Todo</h1>
             <Card
               addTask={(text) => {
                 handleAdd(text);
@@ -120,7 +119,7 @@ function App() {
             onDragOver={(e) => onDragOver(e)}
             onDrop={(e) => onDrop(e, "progress")}
           >
-            Progress
+            <h1>Progress</h1>
             <Progress tasks={tasks} handleDelete={handleDelete} />
           </div>
           <div
@@ -128,7 +127,7 @@ function App() {
             onDragOver={(e) => onDragOver(e)}
             onDrop={(e) => onDrop(e, "done")}
           >
-            Done
+            <h1>Done</h1>
             <Done tasks={tasks} handleDelete={handleDelete} />
           </div>
         </div>

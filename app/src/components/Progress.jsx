@@ -1,23 +1,6 @@
-import { useState, useRef } from "react";
 import { formatDate } from "../Utils";
 
 function Progress({ tasks, handleDelete }) {
-  // function enterKeyPressed(event, newValue, id) {
-  //   if (event.keyCode == 13) {
-  //     console.log("Enter key is pressed");
-  //     console.log(newValue);
-  //     setText(newValue);
-  //     handleTextEdit(newValue, id);
-  //     event.target.contentEditable = false;
-
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
-  // function handleTextClick(e) {
-  //   e.target.contentEditable = true;
-  // }
   const onDragStart = (ev, id) => {
     console.log("dragstart:", id);
     ev.dataTransfer.setData("id", id);
@@ -40,7 +23,7 @@ function Progress({ tasks, handleDelete }) {
               <div className="title-bar">
                 Task:
                 <button
-                  className="DeleteButton"
+                  className="btn btn-danger Deletebtn"
                   onClick={() => {
                     handleDelete(task.id);
                   }}
@@ -53,9 +36,6 @@ function Progress({ tasks, handleDelete }) {
                 className="textarea"
                 // contentEditable={false}
                 key={task.id}
-                // onInput={(e) => handleTextChange(e.target.innerHTML)}
-
-                //html={task.text}
               >
                 {""}
                 <span>{task.text}</span>
