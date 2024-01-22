@@ -37,7 +37,6 @@ function Progress({ tasks, handleDelete }) {
                 // contentEditable={false}
                 key={task.id}
               >
-                {""}
                 <span>{task.text}</span>
               </div>
 
